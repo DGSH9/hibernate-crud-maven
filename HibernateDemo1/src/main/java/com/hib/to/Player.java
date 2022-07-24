@@ -1,7 +1,11 @@
 package com.hib.to;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -9,13 +13,14 @@ import javax.persistence.Table;
 public class Player {
 	
 	@Id
-	//GeneratedValue = (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//dont create constructor or getter setter for id
 	private int playerId;
 	
-	//@Column(nullable = false,name="nameOfPlayer")
+	@Column(nullable = false,name="nameOfPlayer")
 	private String playerName;
-	private String teamName;
+	@OneToOne
+	private Team team ;
 	private int age;
 	
 	public Player() {
@@ -38,14 +43,6 @@ public class Player {
 		this.playerName = playerName;
 	}
 
-	public String getTeamName() {
-		return teamName;
-	}
-
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
-	}
-
 	public int getAge() {
 		return age;
 	}
@@ -54,21 +51,20 @@ public class Player {
 		this.age = age;
 	}
 
-	@Override
-	public String toString() {
-		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", teamName=" + teamName + ", age=" + age
-				+ "]";
-	}
-
-	public Player(int playerId, String playerName, String teamName, int age) {
+	public Player(String playerName, Team team, int age) {
 		super();
-		this.playerId = playerId;
 		this.playerName = playerName;
-		this.teamName = teamName;
+		this.team = team;
 		this.age = age;
 	}
+
+	@Override
+	public String toString() {
+		return "Player [playerId=" + playerId + ", playerName=" + playerName + ", team=" + team + ", age=" + age + "]";
+	}
+
 	
-	
+
 	
 	
 	
